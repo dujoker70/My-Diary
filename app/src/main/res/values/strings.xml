@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Memories</string>
+    <string name="app_name">My Diary</string>
     <string name="create_account"><font color="#00ff00">text</font></string>
     <string name="email">Email</string>
     <string name="password">Password</string>
