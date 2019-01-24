@@ -45,69 +45,7 @@ public class WritingNoteActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(title);
         getSupportActionBar().setSubtitle(subtitle);
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_save, menu);
-        getMenuInflater().inflate(R.menu.menu_edit_delete,menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()== R.id.action_save) {
-            try {
-                saveText();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Intent intent = new Intent(WritingNoteActivity.this,ListViewActivity.class);
-            intent.putExtra("email", email);
-            startActivity(intent);
-        }
-        switch (item.getItemId()) {
-            case R.id.action_edit:
-                onEdit();
-                return true;
-            case R.id.action_delete:
-                onDelete();
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void onEdit() {
-        //startActivity(new Intent(this, AddEditCardActivity.class).putExtra("card", card));
-    }
-
-    private void onDelete() {
-        new AlertDialog.Builder(this)
-                .setTitle("Delete note?")
-                .setMessage("Are you sure you want to delete this note?")
-                .setPositiveButton("Yes",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                deleteCard();
-                            }
-                        })
-                .setNegativeButton("No", null)
-                .create()
-                .show();
-    }
-
-
-    private void deleteCard() {
-//        Log.d(getString(R.string.app_name), "Delete card: " + card.toString());
-
-        /*CardService cardService = new CardService(this);
-        cardService.deleteCard(card);
-
-        Toast.makeText(this, R.string.card_delete_success, Toast.LENGTH_SHORT).show();*/
-
-        finish();
-    }
+    
 
     private void saveText() throws IOException {
         String newPath = path + "/" + email;
