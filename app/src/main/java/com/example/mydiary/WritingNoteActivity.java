@@ -8,10 +8,8 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -24,6 +22,8 @@ public class WritingNoteActivity extends AppCompatActivity {
 
     private String email;
 
+    private String title, subtitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,10 +35,11 @@ public class WritingNoteActivity extends AppCompatActivity {
         path = getFilesDir().getPath();
         email = getIntent().getStringExtra("email");
 
-        String str = getIntent().getStringExtra("noteTitle");
-        String str2 = getIntent().getStringExtra("date");
-        getSupportActionBar().setTitle(str);
-        getSupportActionBar().setSubtitle(str2);
+        title = getIntent().getStringExtra("noteTitle");
+        subtitle = getIntent().getStringExtra("date");
+
+        getSupportActionBar().setTitle(title);
+        getSupportActionBar().setSubtitle(subtitle);
     }
 
     @Override
@@ -55,7 +56,9 @@ public class WritingNoteActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            startActivity(new Intent(WritingNoteActivity.this,ListViewActivity.class));
+            Intent intent = new Intent(WritingNoteActivity.this,ListViewActivity.class);
+            intent.putExtra("email", email);
+            startActivity(intent);
         }
         switch(item.getItemId()) {
             case R.id.item1:
@@ -71,31 +74,40 @@ public class WritingNoteActivity extends AppCompatActivity {
     private void saveText() throws IOException {
         String newPath = path + "/" + email;
         File dir = new File(newPath);
+
         if(!dir.exists()) {
             dir.mkdir();
         }
-        int pos = dir.listFiles().length;
+
+        int pos = 0;
+        while(true) {
+            File file = new File(dir, toString(pos) + ".txt");
+            if(!file.exists()) {
+                break;
+            }
+            ++pos;
+        }
+
         File file = new File(dir, toString(pos) + ".txt");
         file.createNewFile();
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
-        bufferedWriter.write(editText.getText().toString());
+
+        String temp = file.getAbsolutePath() + "\n" + title + "\n" + subtitle + "\n" + editText.getText().toString();
+
+        bufferedWriter.write(temp);
         bufferedWriter.flush();
         bufferedWriter.close();
-        System.out.println("text = " + editText.getText());
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-        System.out.println("readed = " + bufferedReader.readLine());
-        bufferedReader.close();
     }
 
     private String toString(int n) {
         if(n == 0) {
             return "0";
         }
-        String ret = null;
+        String number = "";
         while(n != 0) {
-            ret = (char) (n % 10 + '0') + ret;
+            number = (char) (n % 10 + '0') + number;
             n /= 10;
         }
-        return ret;
+        return number;
     }
 }

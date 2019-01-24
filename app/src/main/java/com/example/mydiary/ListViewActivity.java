@@ -2,7 +2,6 @@ package com.example.mydiary;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -11,21 +10,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
-public class ListViewActivity extends AppCompatActivity {
+public class ListViewActivity extends AppCompatActivity  {
 
     private String email;
 
     private String path;
 
-    private LinearLayout linearLayout;
+    private ListView listView;
+
+    private File[] files;
+
+    private String[] titles, subtitles;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
@@ -35,7 +37,9 @@ public class ListViewActivity extends AppCompatActivity {
 
         email = getIntent().getStringExtra("email");
         path = getFilesDir().getPath() + "/" + email;
-        linearLayout = findViewById(R.id.linearLayoutId);
+        listView = findViewById(R.id.listViewId);
+
+
 
         File dir = new File(path);
 
@@ -43,28 +47,39 @@ public class ListViewActivity extends AppCompatActivity {
             return ;
         }
 
-        File[] files = dir.listFiles();
+        files = dir.listFiles();
 
-        for(File file : files) {
-            try {
-                BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-                String string, note = "";
-                while((string = bufferedReader.readLine()) != null) {
-                    note += string;
-                }
-                bufferedReader.close();
-                TextView textView = new TextView(this);
-                textView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                textView.setTextColor(Color.rgb(0, 0, 0));
-                textView.setMaxEms(10);
-                textView.setText(note);
-                textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                textView.setTextSize(40);
-                linearLayout.addView(textView);
+        try {
+            makeTitlesSubtitles();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
-            } catch (Exception e) {
-                e.printStackTrace();
+        CustomAdapter customAdapter = new CustomAdapter(this, titles, subtitles);
+        listView.setAdapter(customAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(ListViewActivity.this, NoteViewActivity.class);
+                String now = files[i].getAbsolutePath();
+                intent.putExtra("road", now);
+                System.out.println("path on here = " + files[i].getAbsolutePath());
+                startActivity(intent);
             }
+        });
+    }
+
+    private void makeTitlesSubtitles() throws FileNotFoundException {
+        titles = new String[files.length];
+        subtitles = new String[files.length];
+
+        for(int i = 0; i < files.length; i++) {
+            Scanner scanner = new Scanner(files[i]);
+            scanner.nextLine();
+            titles[i] = scanner.nextLine();
+            subtitles[i] = scanner.nextLine();
+            scanner.close();
         }
     }
 

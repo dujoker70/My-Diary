@@ -63,7 +63,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private void checkPreviousLog() {
         if(SaveSharedPreference.getPrefUser(LoginActivity.this).length() != 0) {
-            startActivity(new Intent(LoginActivity.this, ListViewActivity.class));
+            Intent intent = new Intent(LoginActivity.this, ListViewActivity.class);
+            intent.putExtra("email", SaveSharedPreference.getPrefUser(LoginActivity.this));
+            startActivity(intent);
         }
     }
 

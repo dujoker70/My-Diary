@@ -37,7 +37,7 @@ public class AddNewNoteActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(textInputEditText.getText().toString().length() == 0){
-                    Toast.makeText(AddNewNoteActivity.this,"Give a title of your note please", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddNewNoteActivity.this,"Give a title of your note please",Toast.LENGTH_LONG).show();
                 }
                 else{
 
@@ -59,6 +59,4 @@ public class AddNewNoteActivity extends AppCompatActivity {
         stringBuilder.append(datePicker.getYear());
         return  stringBuilder.toString();
     }
-
-
 }

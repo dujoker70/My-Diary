@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,11 +7,13 @@
     android:background="@drawable/background"
     tools:context="com.example.mydiary.ListViewActivity">
 
-    <LinearLayout
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/linearLayoutId">
-    </LinearLayout>
+        android:id="@+id/listViewId"
+        android:divider="#583202"
+        android:dividerHeight="2dp"
+        android:listSelector="#F3E691">
+    </ListView>
 
-</ScrollView>
+</LinearLayout>
