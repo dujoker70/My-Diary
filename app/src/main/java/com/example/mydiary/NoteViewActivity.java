@@ -48,7 +48,7 @@ public class NoteViewActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(title);
         getSupportActionBar().setSubtitle(subtitle);
         while(scanner.hasNext()) {
-            temp += scanner.next() + "\n";
+            temp += scanner.nextLine() + "\n";
         }
         scanner.close();
         textView.setText(temp);
@@ -78,7 +78,7 @@ public class NoteViewActivity extends AppCompatActivity {
     }
 
     private void onEdit() {
-        //startActivity(new Intent(this, AddEditCardActivity.class).putExtra("card", card));
+
     }
 
     private void onDelete() {
@@ -99,10 +99,6 @@ public class NoteViewActivity extends AppCompatActivity {
 
 
     private void deleteCard() {
-//        Log.d(getString(R.string.app_name), "Delete card: " + card.toString());
-
-        /*CardService cardService = new CardService(this);
-        cardService.deleteCard(card);*/
 
         Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
 
