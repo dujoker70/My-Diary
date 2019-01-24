@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="300dp"
-    android:background="@drawable/splashscreen"
+    android:background="@drawable/notebook"
     android:orientation="vertical"
     android:gravity="bottom|center"
     android:paddingBottom="30dp"
@@ -14,11 +14,18 @@
     <ProgressBar
 
         android:id="@+id/progressBarId"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:progressBackgroundTint="#FFFFFF"
-        android:progressTint="#009688"
-        style="@android:style/Widget.ProgressBar.Horizontal"
-        />
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
+        android:layout_width="150dp"
+        android:layout_height="370dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:progress="25"
+        android:progressTint="#1B36C7"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 </LinearLayout>
 

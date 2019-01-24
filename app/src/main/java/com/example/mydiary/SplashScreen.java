@@ -15,6 +15,7 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
+
         progressBar = findViewById(R.id.progressBarId);
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -28,7 +29,7 @@ public class SplashScreen extends AppCompatActivity {
     }
     public void doWork()
     {
-        for(progress = 20;progress<100;progress+=20)
+        for(progress = 20;progress<80;progress+=20)
         {
 
             try {
