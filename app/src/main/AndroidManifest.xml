@@ -27,6 +27,7 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ListViewActivity" />
         <activity android:name=".AddNewNoteActivity" />
+        <activity android:name=".NoteViewActivity"/>
         <activity android:name=".WritingNoteActivity" />
     </application>
 

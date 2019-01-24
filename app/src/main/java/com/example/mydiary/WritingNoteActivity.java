@@ -1,12 +1,16 @@
 package com.example.mydiary;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -45,6 +49,7 @@ public class WritingNoteActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_save, menu);
+        getMenuInflater().inflate(R.menu.menu_edit_delete,menu);
         return true;
     }
 
@@ -60,15 +65,48 @@ public class WritingNoteActivity extends AppCompatActivity {
             intent.putExtra("email", email);
             startActivity(intent);
         }
-        switch(item.getItemId()) {
-            case R.id.item1:
-                break;
-            case R.id.item2:
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.action_edit:
+                onEdit();
+                return true;
+            case R.id.action_delete:
+                onDelete();
+                return true;
         }
-        return true;
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void onEdit() {
+        //startActivity(new Intent(this, AddEditCardActivity.class).putExtra("card", card));
+    }
+
+    private void onDelete() {
+        new AlertDialog.Builder(this)
+                .setTitle("Delete note?")
+                .setMessage("Are you sure you want to delete this note?")
+                .setPositiveButton("Yes",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                deleteCard();
+                            }
+                        })
+                .setNegativeButton("No", null)
+                .create()
+                .show();
+    }
+
+
+    private void deleteCard() {
+//        Log.d(getString(R.string.app_name), "Delete card: " + card.toString());
+
+        /*CardService cardService = new CardService(this);
+        cardService.deleteCard(card);
+
+        Toast.makeText(this, R.string.card_delete_success, Toast.LENGTH_SHORT).show();*/
+
+        finish();
     }
 
     private void saveText() throws IOException {
