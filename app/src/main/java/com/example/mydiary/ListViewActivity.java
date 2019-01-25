@@ -1,9 +1,11 @@
 package com.example.mydiary;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -61,11 +63,28 @@ public class ListViewActivity extends AppCompatActivity  {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(ListViewActivity.this, NoteViewActivity.class);
+                final Intent intent = new Intent(ListViewActivity.this, NoteViewActivity.class);
                 String now = files[i].getAbsolutePath();
                 intent.putExtra("road", now);
                 System.out.println("path on here = " + files[i].getAbsolutePath());
-                startActivity(intent);
+                //startActivity(intent);
+
+                final ProgressDialog progress = new ProgressDialog(ListViewActivity.this);
+                progress.setTitle("Connecting");
+                progress.setMessage("Please wait while we connect to devices...");
+                progress.show();
+
+                Runnable progressRunnable = new Runnable() {
+
+                    @Override
+                    public void run() {
+                        progress.cancel();
+                        startActivity(intent);
+                    }
+                };
+
+                Handler pdCanceller = new Handler();
+                pdCanceller.postDelayed(progressRunnable, 1500);
             }
         });
     }

@@ -45,7 +45,30 @@ public class WritingNoteActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(title);
         getSupportActionBar().setSubtitle(subtitle);
     }
-    
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_save,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_save:
+                try {
+                    saveText();
+
+                    startActivity(new Intent(WritingNoteActivity.this,ListViewActivity.class));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     private void saveText() throws IOException {
         String newPath = path + "/" + email;
