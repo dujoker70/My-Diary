@@ -84,7 +84,7 @@ public class ListViewActivity extends AppCompatActivity  {
                 };
 
                 Handler pdCanceller = new Handler();
-                pdCanceller.postDelayed(progressRunnable, 1500);
+                pdCanceller.postDelayed(progressRunnable, 1000);
             }
         });
     }
