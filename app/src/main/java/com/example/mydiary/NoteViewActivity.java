@@ -55,7 +55,6 @@ public class NoteViewActivity extends AppCompatActivity {
         textView.setText(temp);
         textView.setTextColor(Color.rgb(0, 0, 0));
         textView.setTextSize(20);
-        textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
     }
 
     @Override
