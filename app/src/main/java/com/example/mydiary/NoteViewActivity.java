@@ -53,10 +53,9 @@ public class NoteViewActivity extends AppCompatActivity {
         }
         scanner.close();
         textView.setText(temp);
+        textView.setTextColor(Color.rgb(0, 0, 0));
         textView.setTextSize(20);
-        //textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-        textView.setTextColor(Color.rgb(0,0,0));
-
+        textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
     }
 
     @Override
@@ -81,7 +80,7 @@ public class NoteViewActivity extends AppCompatActivity {
     }
 
     private void onEdit() {
-
+        
     }
 
     private void onDelete() {
@@ -92,7 +91,7 @@ public class NoteViewActivity extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                deleteCard();
+                                deleteNote();
                             }
                         })
                 .setNegativeButton("No", null)
@@ -101,11 +100,8 @@ public class NoteViewActivity extends AppCompatActivity {
     }
 
 
-    private void deleteCard() {
-
-        Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
-
-        finish();
+    private void deleteNote() {
+        file.delete();
+        startActivity(new Intent(NoteViewActivity.this, ListViewActivity.class));
     }
-
 }
