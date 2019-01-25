@@ -123,10 +123,18 @@ public class ListViewActivity extends AppCompatActivity  {
                 break;
             case R.id.item2:
                 break;
+            case R.id.item3:
+                logout();
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    private void logout() {
+        SaveSharedPreference.clearUser(this);
+        startActivity(new Intent(ListViewActivity.this, LoginActivity.class));
     }
 
     @Override

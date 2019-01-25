@@ -20,4 +20,10 @@ public class SaveSharedPreference {
     public static String getPrefUser(Context context) {
         return getSharedPreferences(context).getString(PREF_USER, "");
     }
+
+    public static void clearUser(Context context) {
+        SharedPreferences.Editor editor = getSharedPreferences(context).edit();
+        editor.clear();
+        editor.commit();
+    }
 }

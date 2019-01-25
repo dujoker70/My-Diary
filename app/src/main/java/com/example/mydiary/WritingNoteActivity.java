@@ -59,8 +59,7 @@ public class WritingNoteActivity extends AppCompatActivity {
             case R.id.action_save:
                 try {
                     saveText();
-
-                    startActivity(new Intent(WritingNoteActivity.this,ListViewActivity.class));
+                    startActivity(new Intent(WritingNoteActivity.this,ListViewActivity.class).putExtra("email", email));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
